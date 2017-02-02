@@ -3,27 +3,31 @@ function analyzeThis() {
         event.preventDefault();
         let value = $('textarea').val();
         let valueArray = value.split(" ")
+
+        //word count
         let wordCount = valueArray.length;
 
-        for (let i = 0; i < value.length; i++) {
-            let uniqueWordCount = wordCount;
-            if(valueArray[i] == valueArray[i + 1]) {
-                uniqueWordCount--
-            }
-            return uniqueWordCount
+        //unique word count
+        let uniqueWordCount = 0;
+
+        //average word length
+        let totalLength = 0;
+        const counter = (word) => {
+            totalLength += word.length
         }
-        $('.js-unique-word-count').after(uniqueWordCount)
+        valueArray.map(counter)
+        let averageWordLength = Math.floor(totalLength/wordCount);
 
-        // for (let i = 0; i < value.length; i++) {
-        //     let averageWordLength = 0;
-        //     averageWordLength = valueArray[i].length + valueArray[i + 1].length
-        //     }
-        //     return averageWordLength/2;
-
+        //remove hidden class
         if($('dl').hasClass('hidden')) {
             $('dl').removeClass('hidden')
         }
+
+        //add analyze results
         $('.js-word-count').after(wordCount)
+        $('.js-unique-word-count').after()
+        $('.js-average-word-length').after(averageWordLength)
+        $('.js-average-sentence-length').after()
 
     })
 
